@@ -1,0 +1,22 @@
+Free Tier:
+- Basic link saving
+- Basic categories
+- Limited storage
+
+Personal Pro ($4.99/month):
+- Unlimited storage
+- Advanced search
+- Cloud sync
+- Smart collections
+
+Team Pro ($9.99/user/month):
+- All Personal Pro features
+- Collaboration features
+- Team analytics
+- Priority support
+
+Enterprise (Custom pricing):
+- Custom integration
+- API access
+- Dedicated support
+- Custom features

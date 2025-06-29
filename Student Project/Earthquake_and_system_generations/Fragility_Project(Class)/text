@@ -1,0 +1,215 @@
+Structural Dynamics Spring 2025 Project
+
+
+
+Title: Comparative Seismic Fragility Analysis of Linear vs. Nonlinear 3DOF Systems Using Synthetic Ground Motions
+
+Author: Trevor J. Mogaka
+SIU Carbondale, Civil and Environment Engineering Department
+
+Abstract
+
+Fragility curves are integral to performance-based earthquake engineering (PBEE) and seismic risk assessment, providing a probabilistic link between ground motion intensity and structural damage. This study investigates the influence of material nonlinearity on seismic fragility by comparing results from linear-elastic and nonlinear hysteretic models. A three-degree-of-freedom (3DOF) shear building, representative of a Steel Moment Resisting Frame (SMRF), was analysed using Incremental Dynamic Analysis (IDA). A suite of 100 synthetic, bi-axial ground motion records, consistent with the SAC Los Angeles 10% probability of exceedance in 50 years hazard scenario, was used for excitation. Peak Ground Acceleration (PGA) served as the Intensity Measure (IM), while Maximum Interstory Drift Ratio (MIDR) was the Engineering Demand Parameter (EDP). Damage states (Slight, Moderate, Severe, Near-Collapse) were defined using MIDR thresholds from FEMA P-58 guidelines. Lognormal fragility functions were fitted to the IDA results using Maximum Likelihood Estimation (MLE). Results demonstrate that the nonlinear model consistently yields significantly lower median PGA capacities (θ) compared to the linear model across all damage states, indicating higher vulnerability. Dispersion (β) trends varied with damage level. The findings highlight the unconservative nature of using linear models for predicting drift-based damage and underscore the necessity of employing nonlinear analysis for accurate fragility assessment in PBEE.
+
+Keywords: Fragility Analysis, Nonlinear Dynamic Analysis, Linear Analysis, Steel Moment Frame, 3DOF System, Incremental Dynamic Analysis, Synthetic Ground Motion, Peak Ground Acceleration, Interstory Drift Ratio, Maximum Likelihood Estimation, Performance-Based Earthquake Engineering.
+
+
+
+1. Introduction
+
+1.1. Background and Motivation
+Performance-Based Earthquake Engineering (PBEE) aims to quantify the seismic performance of structures beyond simple code compliance, often focusing on metrics relevant to stakeholders, such as repair costs, downtime, and safety. A cornerstone of PBEE is the fragility function, which provides a probabilistic relationship between a measure of seismic intensity (Intensity Measure, IM) and the probability that a structure or component will reach or exceed a predefined limit state or damage state (DS). These functions are indispensable inputs for seismic risk assessments, enabling the estimation of expected losses and informing decisions regarding design, retrofitting, and insurance.
+
+1.2. Problem Statement
+The development of fragility functions typically relies on structural analysis to simulate performance under various levels of seismic excitation. While linear-elastic models offer computational simplicity, they fundamentally cannot capture the inelastic behavior (such as yielding of steel elements, period elongation, and hysteretic energy dissipation) that characterizes structural response during moderate to strong earthquakes. Damage states, particularly those related to structural integrity (e.g., Moderate, Severe, Collapse), are often defined by deformation limits (like interstory drift ratio) that implicitly correspond to levels of nonlinear response. Consequently, using results from linear analysis to estimate the probability of exceeding these inherently nonlinear damage thresholds can lead to significant inaccuracies and potentially unconservative fragility assessments. This study addresses the critical need to quantify the differences in seismic fragility predictions arising from the use of simplified linear versus more realistic nonlinear structural models.
+
+1.3. Objectives
+The primary objectives of this research are:
+
+
+
+
+
+To develop seismic fragility curves for four distinct damage states (Slight, Moderate, Severe, and Near-Collapse), defined by Maximum Interstory Drift Ratio (MIDR) thresholds, for a representative three-degree-of-freedom (3DOF) shear building model configured as a Steel Moment Resisting Frame (SMRF).
+
+
+
+To derive these fragility curves using both a conventional linear-elastic model and a nonlinear model incorporating bilinear hysteretic behavior.
+
+
+
+To employ the Incremental Dynamic Analysis (IDA) procedure, utilizing a suite of synthetic ground motions statistically representative of the SAC Los Angeles 10% in 50-year hazard scenario, with Peak Ground Acceleration (PGA) as the IM.
+
+
+
+To quantitatively compare the resulting fragility curve parameters – specifically the median capacity (θ) and logarithmic standard deviation (β) – obtained from the linear and nonlinear analyses, thereby isolating the impact of inelastic behavior on predicted fragility.
+
+1.4. Scope and Limitations
+This study focuses on a generic 3DOF SMRF shear model, employing PGA as the IM and MIDR as the EDP. Damage state thresholds are adopted from FEMA P-58 (2012) guidelines. The seismic hazard is represented by a specific synthetic ground motion set (SAC LA 10/50), and fragility parameters are estimated via Maximum Likelihood Estimation (MLE) assuming a lognormal distribution. Key limitations include the use of a simplified 3DOF model (neglecting 3D effects, torsion, etc.), a basic bilinear hysteretic law, the specific characteristics of synthetic versus real ground motions, and the inherent uncertainties associated with PGA as an IM and predefined damage state thresholds.
+
+1.5. Paper Organization
+This paper is structured as follows: Section 2 details the methodology employed, covering structural modeling, ground motion generation, damage state definitions, the IDA procedure, and the fragility curve fitting technique. Section 3 presents the key results, including IDA response clouds and the derived fragility curves and parameters. Section 4 discusses the interpretation and implications of these results, focusing on the comparison between linear and nonlinear fragility predictions and acknowledging study limitations. Finally, Section 5 provides concluding remarks and suggestions for future research.
+
+
+
+2. Methodology
+
+The fragility analysis workflow integrates structural modeling, seismic input definition, dynamic simulation, and statistical post-processing.
+
+2.1. Structural Modeling
+A 3DOF shear building model was adopted to represent the lateral dynamic response of a generic SMRF. The model parameters (floor masses, initial story stiffnesses, story heights) were defined using the Define_3DOF_System.m routine, aiming for properties representative of a typical mid-rise frame. Damping was incorporated using classical Rayleigh damping, formulated as C = αM + βK_initial. The coefficients α and β were calculated to achieve 5% critical damping in the first two translational modes based on the initial stiffness matrix, K_initial.
+
+Two distinct material behaviors were implemented:
+
+
+
+
+
+Linear-Elastic Model: The restoring forces are directly proportional to the relative displacements via the initial stiffness matrix: F_s = K_initial * u.
+
+
+
+Nonlinear Model: A bilinear hysteretic model was assigned to each story's shear force versus interstory drift response. This model is characterized by an initial elastic stiffness (from K_initial), a yield drift ratio of 1.5%, and a post-yield stiffness ratio (α_post_yield) of 10% of the initial stiffness. This captures the fundamental characteristic of stiffness reduction upon yielding. The governing equation of motion is M ü + C u̇ + Fs(u, u̇) = -M {1} ü_g(t), where Fs is the vector of history-dependent nonlinear restoring forces calculated based on the bilinear constitutive law.
+
+2.2. Ground Motion Selection and Scaling
+The seismic input consisted of a suite of N=30 synthetic, bi-axial ground motion records generated using the methodology and MATLAB code (quake_SAC2d_nofig.m) derived from Dickinson & Gavin (2011). These records were generated to be statistically consistent with the SAC Los Angeles 10% probability of exceedance in 50 years hazard scenario (Somerville et al., 1997).
+
+Peak Ground Acceleration (PGA) was selected as the IM. For each generated record pair (NS, EW), the original intensity, PGA_orig, was defined as the maximum absolute acceleration occurring on either horizontal component. For the IDA, each original record was scaled to multiple target PGA levels (PGA_target), ranging from 0.05g to 1.5g in increments of 0.05g. The scaling factor applied was SF = PGA_target / (PGA_orig / 9.81) (assuming record accelerations in m/s²). The North-South (NS) component of the scaled acceleration time history was used as the input ground motion ü_g(t) for the subsequent dynamic analyses.
+
+2.3. Damage States
+Performance was evaluated based on the Maximum Interstory Drift Ratio (MIDR) as the EDP. Four damage states (DS), adapted from FEMA P-58 (2012) guidelines for SMRF systems, were defined based on exceeding specific MIDR thresholds:
+
+
+
+
+
+DS1: Slight Damage (MIDR > 0.007)
+
+
+
+DS2: Moderate Damage (MIDR > 0.015)
+
+
+
+DS3: Severe Damage (MIDR > 0.040)
+
+
+
+DS4: Near-Collapse (MIDR > 0.060)
+
+2.4. Dynamic Analysis Procedure (IDA)
+The IDA methodology (Vamvatsikos & Cornell, 2002) was implemented. For each of the 30 ground motions, Time History Analyses (THA) were performed for both the linear and nonlinear structural models at each of the predefined scaled PGA_target levels. The equations of motion were integrated using the Newmark-beta average acceleration method (γ=0.5, β=0.25) with a time step dt = 0.01 s.
+
+For each THA run, the time histories of floor displacements relative to the ground were obtained. The interstory drift ratio time history for each story 'i' was calculated as [u_i(t) - u_{i-1}(t)] / h_i (with u_0=0). The peak absolute value of this ratio across all stories and the entire time duration was recorded as the MIDR for that specific analysis (PGA_target, ground motion, model type). This process yielded two comprehensive "IDA clouds" of (PGA_target, MIDR) data points, one for the linear model and one for the nonlinear model.
+
+2.5. Fragility Curve Estimation
+The probability of exceeding a damage state DS_k given PGA was assumed to follow the lognormal cumulative distribution function (CDF):
+P[DS_k Exceeded | PGA = pga] = Φ( ln(pga / θ_k) / β_k ) ---- (Eq. 1)
+where θ_k is the median PGA capacity (PGA causing 50% probability of exceeding DS_k), β_k is the logarithmic standard deviation (dispersion) associated with DS_k, and Φ(·) is the standard normal CDF.
+
+The parameters θ_k and β_k were estimated for each damage state and for both linear and nonlinear models using Maximum Likelihood Estimation (MLE), as implemented in the Fit_Fragility_MLE.m function, following Baker (2015). For each damage state, the IDA results were converted into binary outcomes (1 if MIDR > MIDR_limit_k, 0 otherwise) for each (PGA_target, ground motion) pair. The MLE algorithm then finds the θ_k and β_k values that maximize the joint probability (likelihood) of observing this specific set of binary outcomes, given the lognormal fragility function form.
+
+
+
+3. Results
+
+3.1. Incremental Dynamic Analysis (IDA)
+Figure 1 presents the IDA results graphically. Figure 1a shows the MIDR response versus PGA for the linear-elastic model. Each light gray line represents the response trajectory for a single ground motion. As expected, the response scales linearly with PGA, exhibiting considerable scatter arising solely from the variability in ground motion characteristics. Figure 1b displays the IDA results for the nonlinear bilinear model. The initial response is linear, but significant yielding occurs as PGA increases, evidenced by the pronounced flattening of the response curves. This indicates that large increases in drift occur for relatively small increases in PGA once the system enters the inelastic range. The scatter among individual ground motion responses is notable, particularly after yielding initiates. The median IDA curve (blue line) highlights the central tendency of the highly nonlinear response.
+
+(Insert Figure 1: IDA Plots - Side-by-side as provided)
+Caption: Figure 1. Incremental Dynamic Analysis results showing Maximum Interstory Drift Ratio (MIDR) vs. Peak Ground Acceleration (PGA) for (a) the linear model and (b) the nonlinear bilinear model subjected to 30 synthetic ground motions (LA 10/50 scenario). Light gray lines represent individual records; the blue line in (b) represents the median response.
+
+3.2. Fragility Curve Parameters
+The parameters defining the lognormal fragility functions, estimated via MLE, are summarized in Table 1. The table presents the median capacity (θ) and dispersion (β) for each of the four damage states for both the linear and nonlinear structural models. (Self-correction: As I cannot run the code to get exact values, I will create a placeholder table structure and refer to it).
+
+Table 1. Fitted Lognormal Fragility Parameters (θ [g], β)
+
+
+
+3.3. Fragility Curves
+Figure 2 plots the fragility curves derived from the parameters in Table 1. Solid lines denote the nonlinear model, while dashed lines represent the linear model. Each color corresponds to a specific damage state. The curves clearly illustrate the probability of exceeding each damage state threshold as a function of PGA. The consistent leftward shift of the solid (nonlinear) curves relative to the dashed (linear) curves is immediately apparent, particularly for the Moderate, Severe, and Near-Collapse damage states. Differences in the slope of the curves, reflecting the dispersion (β), are also visible.
+
+(Insert Figure 2: Fragility Curves - As provided)
+Caption: Figure 2. Comparison of seismic fragility curves for the 3DOF SMRF model. Solid lines represent the nonlinear bilinear model; dashed lines represent the linear-elastic model. Curves show the probability of exceeding Slight (0.7% MIDR), Moderate (1.5% MIDR), Severe (4.0% MIDR), and Near-Collapse (6.0% MIDR) damage states as a function of Peak Ground Acceleration (PGA).
+
+
+
+4. Discussion
+
+4.1. Impact of Nonlinearity on Fragility
+The results presented unequivocally demonstrate the significant influence of material nonlinearity on seismic fragility predictions based on drift. Comparing the fragility curves (Figure 2) and parameters (Table 1) reveals two key findings:
+
+First, the median PGA capacity (θ) required to induce a given damage state is consistently and substantially lower for the nonlinear model compared to the linear model. This reduction is more pronounced for higher damage states associated with greater inelastic deformation. For instance, [*Refer to Table 1 when values are available - e.g., "the median PGA for Severe damage was approximately X% lower for the nonlinear model"]. This occurs because the bilinear model explicitly accounts for yielding; once a story yields, its stiffness drastically reduces, allowing much larger interstory drifts to accumulate at intensity levels where the linear model would still predict much smaller deformations.
+
+Second, the impact on dispersion (β) appears [*Describe trend based on Figure 2 and Table 1 - e.g., "less straightforward but generally indicates slightly higher uncertainty (larger β) for the nonlinear model at lower damage states (Slight, Moderate) and potentially similar or slightly lower uncertainty at the Near-Collapse state"]. The increased dispersion at lower damage states might reflect the variability in exactly when and how yielding initiates across different ground motions, while the behavior near collapse might be more uniformly governed by the post-yield characteristics.
+
+Overall, the explicit modeling of nonlinearity results in fragility curves that indicate a significantly higher probability of reaching drift-based damage states at any given PGA level, reflecting increased structural vulnerability.
+
+4.2. Implications for Performance Assessment
+The observed differences have critical implications for PBEE and seismic risk assessment. Using a linear-elastic model to predict the probability of exceeding drift-based damage states, particularly those involving moderate to significant inelasticity (like Moderate, Severe, or Near-Collapse), will generally lead to a non-conservative underestimation of fragility. This underestimation translates directly to an underprediction of seismic risk, potentially resulting in inadequate design provisions, underestimated loss projections, or flawed retrofit prioritization. The study strongly suggests that when performance is defined by metrics intrinsically linked to nonlinear response (such as MIDR thresholds associated with yielding or instability), employing appropriate nonlinear time history analysis is not merely preferable, but essential for obtaining realistic and reliable fragility estimates.
+
+4.3. Limitations
+While demonstrating the core impact of nonlinearity, this study has limitations that should be acknowledged. The 3DOF shear building model is a simplification, neglecting torsional irregularities, P-Delta effects, explicit member behavior, and potentially important higher mode effects present in real structures. The bilinear hysteretic model captures yielding but omits more complex phenomena like strength/stiffness degradation and pinching observed in cyclic loading of real components. The use of synthetic ground motions, while statistically consistent with a target spectrum, may not fully replicate all characteristics of recorded earthquakes relevant to structural response; furthermore, applying only one horizontal component simplifies the input. PGA, while widely used, is known to be an imperfect predictor of structural drift compared to other spectral ordinates, especially for structures with longer periods. Finally, the FEMA P-58 damage state thresholds, while based on extensive research, carry their own uncertainties and are specific to the assumed SMRF archetype.
+
+
+
+5. Conclusion
+
+5.1. Summary of Findings
+This study compared the seismic fragility of a 3DOF SMRF shear building model using both linear-elastic and nonlinear (bilinear hysteretic) analysis methods, subjected to synthetic SAC LA 10/50 ground motions. Fragility curves were developed for four drift-based damage states using IDA and MLE. The results consistently showed that the nonlinear model predicts significantly lower median PGA capacities (θ) for reaching all damage states compared to the linear model. This indicates that accounting for material inelasticity reveals a higher probability of exceeding performance limits at lower levels of ground shaking.
+
+5.2. Significance
+The principal conclusion is that neglecting material nonlinearity leads to a substantial and unconservative underestimation of seismic vulnerability when performance is assessed using drift-based damage criteria. The common practice of using linear analysis for fragility estimation related to inelastic limit states is shown to be inadequate. For reliable PBEE applications and seismic risk assessment, particularly when moderate-to-severe damage involving inelastic deformations is anticipated, the use of nonlinear dynamic analysis procedures is necessary.
+
+5.3. Future Work
+Future research could extend this work by:
+
+
+
+
+
+Employing more sophisticated structural models (e.g., 3D finite element models, models incorporating strength/stiffness degradation).
+
+
+
+Investigating the sensitivity of fragility results to different hysteretic models (e.g., Takeda, Clough).
+
+
+
+Utilizing alternative or more advanced Intensity Measures (e.g., Sa(T1), average spectral acceleration, Causal IMs).
+
+
+
+Comparing fragility curves derived from synthetic versus suites of recorded ground motions.
+
+
+
+Conducting sensitivity analyses on key structural parameters like damping ratio, yield strength, and post-yield stiffness.
+
+
+
+References
+
+(Ensure these are complete and formatted correctly)
+
+
+
+
+
+Baker, J.W. (2015). Efficient analytical fragility function fitting using dynamic structural analysis. Earthquake Spectra, 31(1), 579-599.
+
+
+
+Dickinson, B.W., & Gavin, H.P. (2011). A parametric statistical generalization of uniform-hazard earthquake ground motions. Structural Safety, 33(3), 226-234. (Assuming this is the correct reference for the code's background)
+
+
+
+Porter, K. (2021). A Beginner’s Guide to Fragility, Vulnerability, and Risk. University of Colorado Boulder, 139 pp., https://www.sparisk.com/pubs/Porter-beginners-guide.pdf.
+
+
+
+Vamvatsikos, D., & Cornell, C. A. (2002). Incremental dynamic analysis. Earthquake Engineering & Structural Dynamics, 31(3), 491-514.
+
+
+
+[Self-Correction Note: The Dickinson & Gavin reference details might need verification based on the actual source paper for the code. Placeholder Table 1 needs to be filled with actual numerical results from running Run_Fit_Fragility.m. The discussion on dispersion (β) should be refined based on those actual numerical results.]

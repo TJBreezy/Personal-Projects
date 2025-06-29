@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisit - Save Links</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="popup-container">
+        <header class="header">
+            <h1>Revisit</h1>
+            <button class="settings-button" id="settingsButton" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </header>
+
+        <div id="notification" class="notification" style="display: none;" role="alert"></div>
+
+        <div class="actions">
+            <button class="button primary" id="saveLink">
+                <i class="fas fa-bookmark"></i>
+                Save Link
+            </button>
+            <button class="button secondary" id="exportLinks">
+                <i class="fas fa-file-export"></i>
+                Export
+            </button>
+        </div>
+
+        <div class="search-container">
+            <input 
+                type="text" 
+                id="searchInput" 
+                class="search-input" 
+                placeholder="Search saved links..."
+                aria-label="Search links">
+            <div class="search-options">
+                <label class="search-checkbox">
+                    <input type="checkbox" id="searchTitles" checked>
+                    Titles
+                </label>
+                <label class="search-checkbox">
+                    <input type="checkbox" id="searchUrls">
+                    URLs
+                </label>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="categories-section">
+                <div class="categories-header">
+                    <h2>Categories</h2>
+                    <button class="add-category" id="addCategory" aria-label="Add category">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <div class="categories-list" id="categoriesList">
+                    <!-- Categories will be dynamically added here -->
+                </div>
+            </div>
+
+            <div class="links-section">
+                <div class="links-header">
+                    <h2>Saved Links</h2>
+                </div>
+                <div class="saved-links" id="savedLinks">
+                    <!-- Links will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Developed by TJ using WindSurf IDE</p>
+        </footer>
+    </div>
+
+    <!-- Add Category Modal -->
+    <div id="addCategoryModal" class="modal">
+        <div class="modal-content">
+            <h2>Add New Category</h2>
+            <input type="text" id="categoryName" placeholder="Enter category name" maxlength="30">
+            <div class="modal-actions">
+                <button class="button secondary" id="cancelAddCategory">Cancel</button>
+                <button class="button primary" id="confirmAddCategory">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/popup.js"></script>
+</body>
+</html>

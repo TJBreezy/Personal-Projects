@@ -1,0 +1,244 @@
+/* Promotions Page Specific Styles */
+
+/* Promotions Hero */
+.promotions-hero {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: var(--color-bg);
+    padding: calc(var(--space-xl) * 2) var(--space-lg);
+    text-align: center;
+    margin-top: 80px;
+}
+
+.promotions-hero h1 {
+    color: var(--color-bg);
+    font-size: 3.5rem;
+    margin-bottom: var(--space-md);
+}
+
+.promotions-hero p {
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+/* Featured Seasonal Offer */
+.current-promotion {
+    padding: var(--space-xl) 0;
+    background: var(--color-bg-light);
+}
+
+.promo-banner {
+    margin-top: var(--space-xl);
+}
+
+/* Year-Round Savings */
+.all-promotions {
+    padding: var(--space-xl) 0;
+    background: var(--color-bg);
+}
+
+.promotions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
+}
+
+.promotion-card {
+    background: var(--color-bg);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+    text-align: center;
+}
+
+.promotion-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.promotion-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-lg);
+    font-size: 2rem;
+}
+
+.promotion-card h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--space-md);
+    font-size: 1.5rem;
+}
+
+.promotion-dates {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    margin-bottom: var(--space-md);
+}
+
+.promotion-highlight {
+    color: var(--color-accent);
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin: var(--space-md) 0;
+}
+
+.promotion-benefits {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin-top: var(--space-lg);
+}
+
+.promotion-benefits li {
+    margin: var(--space-sm) 0;
+    padding-left: var(--space-lg);
+    position: relative;
+    color: var(--color-text);
+}
+
+.promotion-benefits li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+    font-weight: bold;
+}
+
+/* Subscriber Exclusive Promotions */
+.subscriber-promotions {
+    padding: var(--space-xl) 0;
+    background: var(--color-bg-light);
+}
+
+/* Loyalty Programs */
+.loyalty-programs {
+    padding: var(--space-xl) 0;
+    background: var(--color-bg);
+}
+
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
+}
+
+.program-card {
+    background: var(--color-bg);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+    text-align: center;
+}
+
+.program-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.program-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-lg);
+    font-size: 2rem;
+}
+
+.program-card h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--space-md);
+    font-size: 1.5rem;
+}
+
+.program-benefits {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin-top: var(--space-lg);
+}
+
+.program-benefits li {
+    margin: var(--space-sm) 0;
+    padding-left: var(--space-lg);
+    position: relative;
+    color: var(--color-text);
+}
+
+.program-benefits li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+    font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .promotions-hero {
+        padding: calc(var(--space-xl) * 1.5) var(--space-md);
+    }
+
+    .promotions-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .promotions-hero p {
+        font-size: 1.1rem;
+    }
+
+    .promotion-card,
+    .program-card {
+        padding: var(--space-lg);
+    }
+
+    .promotion-icon,
+    .program-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+
+    .promotion-card h3,
+    .program-card h3 {
+        font-size: 1.25rem;
+    }
+
+    .promotion-highlight {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .promotions-hero h1 {
+        font-size: 2rem;
+    }
+
+    .promotions-hero p {
+        font-size: 1rem;
+    }
+
+    .promotion-card,
+    .program-card {
+        padding: var(--space-md);
+    }
+
+    .promotions-grid,
+    .programs-grid {
+        gap: var(--space-md);
+    }
+}
